@@ -24,12 +24,12 @@ public class BookServiceTest {
     private BookService bookService;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         bookService = new BookService(bookRepository);
     }
 
     @Test
-    void shouldReturnEmptyList(){
+    void shouldReturnEmptyList() {
         Mockito.when(bookRepository.findAll()).thenReturn(List.of());
         List<Book> result = bookService.getBooks();
         Assertions.assertTrue(result.isEmpty());
@@ -37,8 +37,8 @@ public class BookServiceTest {
 
     //add book then get list again
     @Test
-    void shouldAddBookAndReturnListWithOneBook(){
-        Book book = new Book(0L, "It", "Stephen King", 1181);
+    void shouldAddBookAndReturnListWithOneBook() {
+        Book book = new Book(0L, "It", "Stephen King", 1181, "2019");
         Mockito.when(bookRepository.save(book)).thenReturn(book);
 
         Book actual = bookService.saveBook(book);
@@ -50,6 +50,23 @@ public class BookServiceTest {
 
         Assertions.assertFalse(actualList.isEmpty());
         Assertions.assertEquals(1, actualList.size());
-        Assertions.assertEquals(expectedList,actualList);
+        Assertions.assertEquals(expectedList, actualList);
+
+
+    }
+
+
+    @Test
+    void shouldRemoveBook() {
+        Book expectedBook = new Book(0L, "It", "Stephen King", 1181, "2019");
+
+        Mockito.doNothing().when(bookRepository).deleteById(expectedBook.getId());
+
+
+        bookService.deleteBook(expectedBook.getId());
+
+        Mockito.verify(bookRepository, Mockito.times(1)).deleteById(expectedBook.getId());
+
+
     }
 }
