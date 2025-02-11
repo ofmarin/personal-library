@@ -6,12 +6,12 @@ import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BookRepository extends JpaRepository<Book, Long> {
     //add custom methods here
     List<Book> findByAuthor(String author);
     Book findByTitle(String title);
-
-
     void deleteById(@NonNull Long id);
+    @NonNull Optional<Book> findById(@NonNull Long id);
 }

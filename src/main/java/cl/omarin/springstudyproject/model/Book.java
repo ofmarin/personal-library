@@ -48,7 +48,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        author = author;
+        this.author = author;
     }
 
     public int getPages() {

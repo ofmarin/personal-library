@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.List;
+import java.util.Optional;
 
+//@Restcontroller annotation includes @ResponseBody at class level
 @RestController
 @RequestMapping("/books")
 public class BookController {
@@ -28,7 +29,19 @@ public class BookController {
     }
 
     @PostMapping("")
-    public ResponseEntity<Book> addBook(@RequestBody Book book){
+    public ResponseEntity<Book> saveBook(@RequestBody Book book){
         return ResponseEntity.status(HttpStatus.OK).body(bookService.saveBook(book));
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Book> deleteBook(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.deleteBook(id));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Book> findBook(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.OK).body(bookService.findBook(id));
     }
 }

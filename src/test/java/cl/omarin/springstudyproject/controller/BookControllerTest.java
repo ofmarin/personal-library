@@ -47,21 +47,33 @@ public class BookControllerTest {
         Book expectedBook = new Book(0L, "It", "Stephen King", 1181, "2019");
         Mockito.when(bookService.saveBook(expectedBook)).thenReturn(expectedBook);
 
-        ResponseEntity<Book> actualResponse = bookController.addBook(expectedBook);
+        ResponseEntity<Book> actualResponse = bookController.saveBook(expectedBook);
 
         Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
         Assertions.assertEquals(expectedBook, actualResponse.getBody());
     }
 
     @Test
-    void shouldReturnListWith1Book(){
+    void shouldReturnStatusOkListWith1Book(){
         Book book = new Book(0L, "It", "Stephen King", 1181, "2019");
         Mockito.when(bookService.getBooks()).thenReturn(List.of(book));
 
+        ResponseEntity<List<Book>> actualResponse = bookController.getBooks();
+
         List<Book> expectedList = List.of(book);
-        List<Book> actualList = bookController.getBooks().getBody();
+        List<Book> actualList = actualResponse.getBody();
 
         Assertions.assertFalse(actualList.isEmpty());
         Assertions.assertEquals(expectedList,actualList);
+        Assertions.assertEquals(HttpStatus.OK, actualResponse.getStatusCode());
+    }
+
+    //para testear un retorno void debo testear los side effects.
+
+    @Test
+    void shouldDeleteBookAndReturnStatus204(){
+        Book book = new Book(0L, "It", "Stephen King", 1181, "2019");
+        List<Book> mockList = List.of(book);
+
     }
 }

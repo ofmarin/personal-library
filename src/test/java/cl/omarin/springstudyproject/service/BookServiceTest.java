@@ -52,19 +52,13 @@ public class BookServiceTest {
         Assertions.assertEquals(1, actualList.size());
         Assertions.assertEquals(expectedList, actualList);
 
-
     }
-
 
     @Test
     void shouldRemoveBook() {
         Book expectedBook = new Book(0L, "It", "Stephen King", 1181, "2019");
 
-        Mockito.doNothing().when(bookRepository).deleteById(expectedBook.getId());
-
-
         bookService.deleteBook(expectedBook.getId());
-
         Mockito.verify(bookRepository, Mockito.times(1)).deleteById(expectedBook.getId());
 
 
