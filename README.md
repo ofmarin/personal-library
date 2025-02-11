@@ -11,4 +11,8 @@ to a PostgreSQL database.
 - **JUnit**: Framework for writing and running tests.
 - **Gradle**: The build tool used for dependency management and project management.
 
+### Todo:
+
+- [ ] add tests for delete and findbyid
+- [ ] implement findBooks by author and findBookByTitle
 
